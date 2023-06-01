@@ -5,10 +5,10 @@ import "./component/Navbar";
 
 import Navbar from "./component/Navbar";
 import TextForm from "./component/TextForm";
-import About from "./component/About";
+// import About from "./component/About";
 import { useState } from "react";
 import Alert from "./component/Alert";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [mode, setmode] = useState("light");
@@ -39,7 +39,7 @@ function App() {
   };
   return (
     <>
-      <Router>
+      {/* <Router> */}
         <Navbar
           title="Textutils"
           abouttext="About text utils"
@@ -49,9 +49,9 @@ function App() {
         />
         <div className="container mt-3">
           <Alert alert={alert} />
-
-          <Routes>
-            <Route
+          <TextForm heading="Enter the text for analyze" mode={mode} />
+          {/* <Routes> */}
+            {/* <Route
               index
               element={
                 <TextForm heading="Enter the text for analyze" mode={mode} />
@@ -65,9 +65,9 @@ function App() {
               }
             ></Route>
             <Route exact path="about" element={<About />}></Route>
-          </Routes>
+          </Routes> */}
         </div>
-      </Router>
+      {/* </Router> */}
 
       {/* <About /> */}
     </>
