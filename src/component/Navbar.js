@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
     <>
       <nav className={`navbar navbar-expand-lg navbar-${props.mode}  bg-${props.mode}`}>
         <div className="container-fluid">
-          <a className="navbar-brand" href="http://google.com">
+          <Link className="navbar-brand" to="/">
             {props.title}
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,18 +23,18 @@ const Navbar = (props) => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a
+                <Link
                   className="nav-link active"
                   aria-current="page"
-                  href="http://google.com"
+                  to="/"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="http://google.com">
-                  {props.abouttext}
-                </a>
+                <Link className="nav-link" to="/about">
+                  About
+                </Link>
               </li>
             </ul>
               <div className={`form-check form-switch text-${props.mode==='light'?'dark':'light'}`}>
