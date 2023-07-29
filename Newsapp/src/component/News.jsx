@@ -37,7 +37,7 @@ export class News extends Component {
     let passedData = await data.json();
     await this.setState({
       articles: passedData.articles,
-      loading: false,
+      loading: true,
       totalResults: passedData.totalResults,
     });
     
@@ -45,24 +45,14 @@ export class News extends Component {
   fetchMoreData = async () => {
     await this.setState({ page: this.state.page + 1 },async()=>{
       const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=c05f8a16903e4948bcf9eefb2d63b1c8&page=${this.state.page}&pagesize=${this.props.pageSize}`;
-      this.setState({ loading: true });
-      
-      console.log(this.state.page);
       let data = await fetch(url);
       let passedData = await data.json();
       await this.setState({
         articles: this.state.articles.concat(passedData.articles),
-        loading: false,
+        
       });
       // {console.log(this.passedData)}
     });
-    // console.log(this.state.page);
-    // console.log(this.state.page);
-   
-
-
-    console.log(this.state.totalResults+"total")
-    console.log(this.state.articles.length+"article")
   };
  componentDidMount() {
     this.fetchNews();
@@ -87,7 +77,7 @@ export class News extends Component {
               News Monkey - Top{" "}
               {this.capitalizeFirstLetter(this.props.category)} Headlines
             </h1>
-            {/* {this.state.loading && <Spinner />} */}
+            {this.state.loading && <Spinner />}
             {/* {console.log(this.state.totalResults)} */}
           </div>
 
