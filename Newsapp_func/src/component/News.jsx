@@ -38,30 +38,24 @@ const fetchNews = async () => {
 
 
 const fetchMoreData = async () => {
-  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pagesize=${props.pageSize}`;
+  const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page+1}&pagesize=${props.pageSize}`;
+  setPage(page + 1)
   let data = await fetch(url);
   let passedData = await data.json();
   setArticles(articles.concat(passedData.articles))
   setTotalResults(passedData.totalResults)
 }
 
-const count=()=>{
-  setPage(page + 1)
-
-}
-useEffect(()=>{
-  fetchMoreData()
-},[page])
-
 useEffect(() => {
   fetchNews();
+  /* eslint-disable */
 },[])
 
 return (
   <>
     <div className="row ">
       <div className="col-md-12">
-        <h1 className="text-center mb-5">
+        <h1 className="text-center my-5 ">
           News Monkey - Top{" "}
           {capitalizeFirstLetter(props.category)} Headlines
         </h1>
@@ -71,7 +65,7 @@ return (
 
       <InfiniteScroll
         dataLength={articles.length}
-        next={count}
+        next={fetchMoreData}
         hasMore={articles.length !== totalResults}
         loader={<Spinner />}
       >
