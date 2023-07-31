@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://ashishsinghcode:7726525@mernstack.3pjfgna.mongodb.net/'
-
+require('dotenv').config()
 const connectToMongo =()=>{
-    mongoose.connect(mongoURI)
+    mongoose.connect(process.env.MONGO_URL)
     .then((res)=>{
         console.log("Connected to Mongo successfully")
     })
