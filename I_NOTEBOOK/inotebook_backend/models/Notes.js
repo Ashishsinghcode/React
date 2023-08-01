@@ -1,7 +1,12 @@
 const { default: mongoose } = require('mongoose');
 const mongo = require('mongoose');
 
-const NotesSchema = new Schema({
+const NotesSchema = new mongo.Schema({
+   user:{
+    type:mongo.Schema.Types.ObjectId,
+    ref:'user',
+    required:true
+   },   
    title:{
     type:String,
     required:true
