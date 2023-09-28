@@ -30,7 +30,7 @@ router.post('/addnotes', fetchUser, [
             title, description, tag, user: req.user.id
         })
         const saveNote = await note.save()
-        res.json(saveNote)
+        res.json({saveNote,msg:"Notes Added Successfully"})
 
     } catch (error) {
         res.status(500).json("Some error occured" + error)
@@ -46,8 +46,8 @@ router.put('/updatenotes/:id', fetchUser, async (req, res) => {
 
         const newNote = {}
         if (title) { newNote.title = title };
-        if (title) { newNote.description = description };
-        if (title) { newNote.tag = tag };
+        if (description) { newNote.description = description };
+        if (tag) { newNote.tag = tag };
 
         //Check the user who update and make sure that note belong to same user
 
@@ -61,7 +61,9 @@ router.put('/updatenotes/:id', fetchUser, async (req, res) => {
         }
         
         note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
+        console.log(note)
         res.json(note)
+    
 
     } catch (error) {
         res.status(500).json("Some error occured" + error)
@@ -82,6 +84,7 @@ router.delete('/deletenotes/:id', fetchUser, async (req, res) => {
         }
         note = await Notes.findByIdAndDelete(req.params.id)
         res.json({ "Success": "Note deleted Successfully", note: note })
+        
     }
     catch (error) {
         res.status(500).json("Some error occured" + error)
