@@ -30,10 +30,18 @@ router.post('/addnotes', fetchUser, [
             title, description, tag, user: req.user.id
         })
         const saveNote = await note.save()
-        res.json(saveNote)
+        res.json({
+            status:200,
+            success:true,
+            msg:"Notes added successfully"
+        })
 
     } catch (error) {
-        res.status(500).json("Some error occured" + error)
+        res.json({
+            status:500,
+            success:false,
+            msg:String(error)
+        })
 
     }
 })
@@ -61,10 +69,18 @@ router.put('/updatenotes/:id', fetchUser, async (req, res) => {
         }
         
         note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
-        res.json(note)
+        res.json({
+            status:200,
+            success:true,
+            msg:"Notes updated successfully"
+        })
 
     } catch (error) {
-        res.status(500).json("Some error occured" + error)
+        res.json({
+            status:500,
+            success:false,
+            msg:String(error)
+        })
     }
 })
 
@@ -81,10 +97,18 @@ router.delete('/deletenotes/:id', fetchUser, async (req, res) => {
             return res.status(401).send("Not allowed to Delete")
         }
         note = await Notes.findByIdAndDelete(req.params.id)
-        res.json({ "Success": "Note deleted Successfully", note: note })
+        res.json({
+            status:200,
+            success:true,
+            msg:"Notes deleted successfully"
+        })
     }
     catch (error) {
-        res.status(500).json("Some error occured" + error)
+        res.json({
+            status:500,
+            success:false,
+            msg:String(error)
+        })
     }
 })
 
