@@ -30,11 +30,15 @@ router.post('/addnotes', fetchUser, [
             title, description, tag, user: req.user.id
         })
         const saveNote = await note.save()
+<<<<<<< HEAD
         res.json({
             status:200,
             success:true,
             msg:"Notes added successfully"
         })
+=======
+        res.json({saveNote,msg:"Notes Added Successfully"})
+>>>>>>> 4308fd15a3ed58b73316e6a188f39f34f86b7a00
 
     } catch (error) {
         res.json({
@@ -54,8 +58,8 @@ router.put('/updatenotes/:id', fetchUser, async (req, res) => {
 
         const newNote = {}
         if (title) { newNote.title = title };
-        if (title) { newNote.description = description };
-        if (title) { newNote.tag = tag };
+        if (description) { newNote.description = description };
+        if (tag) { newNote.tag = tag };
 
         //Check the user who update and make sure that note belong to same user
 
@@ -69,11 +73,17 @@ router.put('/updatenotes/:id', fetchUser, async (req, res) => {
         }
         
         note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
+<<<<<<< HEAD
         res.json({
             status:200,
             success:true,
             msg:"Notes updated successfully"
         })
+=======
+        console.log(note)
+        res.json(note)
+    
+>>>>>>> 4308fd15a3ed58b73316e6a188f39f34f86b7a00
 
     } catch (error) {
         res.json({
@@ -97,11 +107,16 @@ router.delete('/deletenotes/:id', fetchUser, async (req, res) => {
             return res.status(401).send("Not allowed to Delete")
         }
         note = await Notes.findByIdAndDelete(req.params.id)
+<<<<<<< HEAD
         res.json({
             status:200,
             success:true,
             msg:"Notes deleted successfully"
         })
+=======
+        res.json({ "Success": "Note deleted Successfully", note: note })
+        
+>>>>>>> 4308fd15a3ed58b73316e6a188f39f34f86b7a00
     }
     catch (error) {
         res.json({

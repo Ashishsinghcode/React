@@ -39,6 +39,7 @@ router.post('/createuser', [
                         id: user.id
                     }
                 }
+                
                 const jwtData = jwt.sign(payload, process.env.JWT_SECRET)
                 // user.save()
                 res.json({
@@ -73,6 +74,7 @@ router.post('/login', [
     const { email, password } = req.body
     try {
         let user = await User.findOne({ email });
+        
         if (!user) {
             return res.status(400).json({ error: "Please try to login with correct credential" })
         }
@@ -88,7 +90,7 @@ router.post('/login', [
                 }
         }
         const jwtData = await jwt.sign(payload, process.env.JWT_SECRET)
-        console.log(jwtData)
+        
         // user.save()
         res.json({
             status: 200,
@@ -110,7 +112,8 @@ router.post('/login', [
 router.post('/getuser',fetchUser, async (req, res) => {
    
     try {
-        const user = await User.findOne({id:req.user.id}).select("-password")
+        const user = await User.findOne({ _id:req.user.id }).select("-password")
+        
         res.send(user)
     } catch (error) {
         res.status(500).json("Some error occured" + error)
