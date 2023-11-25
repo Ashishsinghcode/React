@@ -1,15 +1,27 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
     Link
 } from "react-router-dom";
-export default function Navbar() {
+export default function Navbar(props) {
+    const {handleAlert}= props
     let location = useLocation();
+    let navigate = useNavigate();
 
     React.useEffect(() => {
        
     }, [location]);
-    return (
+
+   const handleLogout=(e)=>{
+    e.preventDefault();
+    localStorage.removeItem('token')
+    if(!localStorage.getItem('token')){
+        handleAlert("Logout Successfully","success")
+        navigate("/login")
+    }
+
+   }
+       return (
         <>
             <nav className="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <Link className="navbar-brand mx-2" to="/">iNotebook</Link>
@@ -24,6 +36,11 @@ export default function Navbar() {
                         <Link className="nav-item nav-link disabled" to="/">Disabled</Link> */}
                     </div>
                 </div>
+                <form className='d-flex'>
+                    {localStorage.getItem('token')? <Link className='btn btn-primary mx-2' onClick={handleLogout} role='button'>Logout</Link> : <Link className='btn btn-primary mx-2'  to="/login" role='button'>Login</Link>}
+                   
+                    <Link hidden={localStorage.getItem('token')} className='btn btn-primary mx-2' to="/signup" role='button'>Signup</Link>
+                </form>
             </nav>
         </>
     )

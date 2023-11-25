@@ -1,4 +1,4 @@
-import React, {useContext,useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import Noteitem from './Noteitem'
 import AddNote from './AddNote'
 import noteContext from '../context/notes/NoteContext'
@@ -7,8 +7,8 @@ import noteContext from '../context/notes/NoteContext'
 function Notes() {
     const context = useContext(noteContext)
     const { notes, getallnotes, editnote } = context
-    const [note, setNote] = useState({id:"" ,etitle: "", edescription: "", etag: ""})
-    
+    const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
+
     useEffect(() => {
         getallnotes()
         /*eslint-disable */
@@ -17,13 +17,14 @@ function Notes() {
     const updateNote = (currentNote) => {
 
         ref.current.click()
-        setNote({id:currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+        setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
     }
     const ref = useRef(null)
 
     const onchange = (e) => {
-        setNote({ ...note,[e.target.name]: e.target.value })
-       
+        setNote({ ...note, [e.target.name]: e.target.value })
+        console.log(e.target.value)
+
     }
     const handleClick = (e) => {
         e.preventDefault()
@@ -34,7 +35,6 @@ function Notes() {
     return (
         <>
             <AddNote />
-
             <button ref={ref} className="" data-bs-toggle="modal" data-bs-target="#exampleModal" hidden></button>
             <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
@@ -48,7 +48,6 @@ function Notes() {
                                 <div className="form-group">
                                     <label htmlFor="exampleInputtitle1">Title</label>
                                     <input type="text" className="form-control" id="title" name='etitle' aria-describedby="titleHelp" placeholder="Enter title" value={note.etitle} onChange={onchange} />
-
                                 </div>
                                 <div className="form-group my-2">
                                     <label htmlFor="exampleInputDescription1">Description</label>
@@ -56,13 +55,13 @@ function Notes() {
                                 </div>
                                 <div className="form-group my-2">
                                     <label htmlFor="exampleInputtag">Tag</label>
-                                    <input type='text' className="form-control" id="exampleInputtag"name='etag' value={note.etag}  placeholder="Enter tag " onChange={onchange} />
+                                    <input type='text' className="form-control" id="exampleInputtag" name='etag' value={note.etag} placeholder="Enter tag " onChange={onchange} />
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" data-bs-dismiss="modal" onClick={handleClick} className="btn btn-primary">Update</button>
+                            <button disabled={note.etitle.length<5 || note.edescription.length<5} type="button" data-bs-dismiss="modal" onClick={handleClick} className="btn btn-primary">Update</button>
                         </div>
                     </div>
                 </div>
@@ -70,11 +69,20 @@ function Notes() {
             <div className='row'>
                 <div className='container '>
                     <div className='row'>
-                    <h1 className='text-center'>Your Notes</h1>
-
-                        {notes.map((note, key) => {
-                            return <Noteitem key={key} updatenote={updateNote} note={note} />
-                        })}
+                        <div className='col-md-2'></div>
+                        <div className='col-md-10'>
+                            <h1 className='text-center'>Your Notes</h1>
+                            <div className='container'>
+                                <div className='row'>
+                                    <p className='text-center'> {notes.length === 0 && "No Notes to Display"}</p>
+                                </div>
+                                <div className='row'>
+                                    {notes.map((note, key) => {
+                                        return <Noteitem key={key} updatenote={updateNote} note={note} />
+                                    })}
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>

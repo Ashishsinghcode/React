@@ -10,12 +10,8 @@
   "author": "Ashish kumar singh",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
-=======
     "bcrypt": "^5.1.1",
->>>>>>> 4308fd15a3ed58b73316e6a188f39f34f86b7a00
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",

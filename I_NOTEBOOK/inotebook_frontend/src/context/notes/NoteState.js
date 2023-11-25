@@ -13,7 +13,7 @@ const NoteState = (props) => {
             method: "GET", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRjODhhYjljYjE5ZTQ4MzY4OGIzZTNiIn0sImlhdCI6MTY5MDg3MTYzNH0.NALt9Ai5VwkSnoWvZEI8H_j6PIXuesq_KcFDzcLNdng"
+                "auth-token": localStorage.getItem('token')
             },
         });
         const json = await response.json();
@@ -30,7 +30,7 @@ const NoteState = (props) => {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRjODhhYjljYjE5ZTQ4MzY4OGIzZTNiIn0sImlhdCI6MTY5MDg3MTYzNH0.NALt9Ai5VwkSnoWvZEI8H_j6PIXuesq_KcFDzcLNdng"
+                "auth-token": localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag }),
         });
@@ -47,7 +47,7 @@ const NoteState = (props) => {
             method: "DELETE", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRjODhhYjljYjE5ZTQ4MzY4OGIzZTNiIn0sImlhdCI6MTY5MDg3MTYzNH0.NALt9Ai5VwkSnoWvZEI8H_j6PIXuesq_KcFDzcLNdng"
+                "auth-token":localStorage.getItem('token')
             },
 
         });
@@ -69,12 +69,11 @@ const NoteState = (props) => {
             method: "PUT", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRjODhhYjljYjE5ZTQ4MzY4OGIzZTNiIn0sImlhdCI6MTY5MDg3MTYzNH0.NALt9Ai5VwkSnoWvZEI8H_j6PIXuesq_KcFDzcLNdng"
+                "auth-token": localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag }),
         });
         const json = await response.json();
-        console.log(json)
         json.status === 200 ?handleAlert(json.msg,"success"): handleAlert(json.msg,"danger")
        
        

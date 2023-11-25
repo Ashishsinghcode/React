@@ -18,6 +18,8 @@ router.post('/createuser', [
         if (result.isEmpty()) {
             //Another Method to check the email if already exist
             let check = await User.findOne({ email: req.body.email }).exec()
+            console.log(req.body.email)
+            console.log(check)
             if (check) {
                 res.status(400).json({
                     status: 400,
@@ -76,13 +78,13 @@ router.post('/login', [
         let user = await User.findOne({ email });
         
         if (!user) {
-            return res.status(400).json({ error: "Please try to login with correct credential" })
+            return res.status(400).json({ msg: "Please try to login with correct credential" })
         }
 
         const checkPassword = await bcrypt.compare(password, user.password)
 
         if (!checkPassword) {
-            return res.status(400).json({ error: "Please try to login with correct credential" })
+            return res.status(400).json({ msg: "Please try to login with correct credential" })
         }
         const payload = {
                 user: {
@@ -95,13 +97,13 @@ router.post('/login', [
         res.json({
             status: 200,
             success: true,
-            msg: 'User Login Successfully',
+            msg: 'Login Successfully',
             token: jwtData
         });
 
 
     } catch (error) {
-        res.status(500).json("Some error occured" + error)
+        res.status(500).json("Some error occured" + msg)
 
     }
 
