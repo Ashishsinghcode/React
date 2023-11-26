@@ -106,10 +106,7 @@ router.post('/login', [
         res.status(500).json("Some error occured" + msg)
 
     }
-
 })
-
-
 //ROUTE 3 : Get Logged in user details -- Login required
 router.post('/getuser',fetchUser, async (req, res) => {
    
